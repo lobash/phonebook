@@ -23,7 +23,7 @@ class Controller
     /**
      * @return string
      */
-    protected function actionAuth()
+    public function actionAuth()
     {
         return 'auth';
     }
@@ -31,7 +31,7 @@ class Controller
     /**
      * @return string
      */
-    protected function actionRegister()
+    public function actionRegister()
     {
         return 'register';
     }
@@ -39,7 +39,7 @@ class Controller
     /**
      * @return string
      */
-    protected function actionList()
+    public function actionList()
     {
         return 'list';
     }
@@ -47,9 +47,12 @@ class Controller
     /**
      * @return string
      */
-    protected function actionIndex()
+    public function actionIndex()
     {
-        return 'index';
+        if ($this->isAuth()) {
+            return $this->actionList();
+        }
+        return $this->actionRegister();
     }
 
     /**
@@ -62,6 +65,14 @@ class Controller
             $sUri = '/index';
         }
         return $sUri;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isAuth()
+    {
+        return false;
     }
 
 }
