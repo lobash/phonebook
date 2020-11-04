@@ -12,7 +12,7 @@ class Controller
      */
     public function __construct()
     {
-        $this->aRoutes = include CONFIG_DIR_PATH . '/routes.php';
+        $this->aRoutes = require CONFIG_DIR_PATH . '/routes.php';
     }
 
     /**
