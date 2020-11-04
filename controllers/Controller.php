@@ -3,76 +3,46 @@
 
 class Controller
 {
+    /** @var array */
+    private $aRoutes = [];
+
     /**
-     * @return mixed
+     * Controller constructor.
      */
-    public function route()
+    public function __construct()
+    {
+        $this->aRoutes = include ROOT . '/configs/routes.php';
+    }
+
+    /**
+     * @return string
+     */
+    public function route(): string
     {
         $sUri = $this->getUrl();
 
-        try {
-            $action = 'action' . ucfirst(substr($sUri, 1));
-            return $this->$action();
-
-        } catch (Exception $exception) {
-            throw new $exception;
+        foreach ($this->aRoutes as $sPattern => $sPath) {
+            if (preg_match("-$sPattern-", $sUri)) {
+                list($sController, $sAction) = explode('/', $sPath);
+                $sActionName = 'action' . ucfirst($sAction);
+                $sControllerName = 'Controller' . ucfirst($sController);
+                $oController = new $sControllerName;
+                return $oController->$sActionName();
+            }
         }
-    }
-
-
-    /**
-     * @return string
-     */
-    public function actionAuth()
-    {
-        return 'auth';
+        return '';
     }
 
     /**
      * @return string
      */
-    public function actionRegister()
+    private function getUrl(): string
     {
-        return 'register';
-    }
-
-    /**
-     * @return string
-     */
-    public function actionList()
-    {
-        return 'list';
-    }
-
-    /**
-     * @return string
-     */
-    public function actionIndex()
-    {
-        if ($this->isAuth()) {
-            return $this->actionList();
-        }
-        return $this->actionRegister();
-    }
-
-    /**
-     * @return mixed|string
-     */
-    private function getUrl()
-    {
-        $sUri = $_SERVER['REQUEST_URI'];
-        if ($sUri == '/') {
-            $sUri = '/index';
+        $sUri = '';
+        if (!empty($_SERVER['REQUEST_URI'])) {
+            $sUri = trim($_SERVER['REQUEST_URI'], '/');
         }
         return $sUri;
-    }
-
-    /**
-     * @return bool
-     */
-    private function isAuth()
-    {
-        return false;
     }
 
 }
