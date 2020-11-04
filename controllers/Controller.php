@@ -1,5 +1,6 @@
 <?php
 
+namespace controllers;
 
 class Controller
 {
@@ -11,26 +12,28 @@ class Controller
      */
     public function __construct()
     {
-        $this->aRoutes = include ROOT . '/configs/routes.php';
+        $this->aRoutes = include CONFIG_DIR_PATH . '/routes.php';
     }
 
     /**
-     * @return string
+     * @return void
      */
-    public function route(): string
+    public function route(): void
     {
         $sUri = $this->getUrl();
-
         foreach ($this->aRoutes as $sPattern => $sPath) {
             if (preg_match("-$sPattern-", $sUri)) {
-                list($sController, $sAction) = explode('/', $sPath);
+                $internalRoute = preg_replace("-$sPattern-", $sPath, $sUri);
+                $aRouteData = explode('/', $internalRoute);
+                $sController = array_shift($aRouteData);
+                $sAction = array_shift($aRouteData);
                 $sActionName = 'action' . ucfirst($sAction);
-                $sControllerName = 'Controller' . ucfirst($sController);
-                $oController = new $sControllerName;
-                return $oController->$sActionName();
+                $sControllerName = 'controllers\\' . 'Controller' . ucfirst($sController);
+                $oController = new  $sControllerName();
+
+                echo call_user_func_array([$oController, $sActionName], $aRouteData);
             }
         }
-        return '';
     }
 
     /**
