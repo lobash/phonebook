@@ -2,6 +2,10 @@
 
 namespace controllers;
 
+use components\CurrentUser;
+use components\Validator;
+use Exception;
+use models\Users;
 use views\View;
 
 /**
@@ -12,22 +16,43 @@ class ControllerAuth
 {
     /**
      * @return string
+     * @throws Exception
      */
-    public function actionIndex()
+    public function actionLogin(): string
     {
+        Validator::checkCsrf();
+
+        $aPost = Validator::clearArray($_POST);
+        if (!empty($aPost['login']) || !empty($aPost['password'])) {
+            $iId = (int)Users::getIdOnLoginPassword($aPost['login'], $aPost['password']);
+            $sResult = 'error';
+            if ($iId !== 0) {
+                CurrentUser::loggedIn($iId);
+                $sResult = 'success';
+            }
+
+            return json_encode($sResult);
+        }
+        throw new Exception('incorrect data for login');
     }
 
-    public function actionLogin()
+    /**
+     * @return string
+     */
+    public function actionShowRegisterForm(): string
     {
-    }
+        $sCsrf = Validator::generateCsrf();
 
-    public function actionShowRegisterForm()
-    {
+        $oView = new View('auth/register_form');
+        $oView->assign('sCsrf', $sCsrf);
+        return $oView->render();
     }
-
 
     public function actionLogout()
     {
+        CurrentUser::loggedOut();
+        echo json_encode('success');
+        exit;
     }
 
     /**
@@ -35,7 +60,10 @@ class ControllerAuth
      */
     public function actionShowFormAuth(): string
     {
+        $sCsrf = Validator::generateCsrf();
+
         $oView = new View('auth/auth_form');
+        $oView->assign('sCsrf', $sCsrf);
         return $oView->render();
     }
 
