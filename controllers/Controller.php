@@ -12,13 +12,13 @@ class Controller
      */
     public function __construct()
     {
-        $this->aRoutes = require CONFIG_DIR_PATH . '/routes.php';
+        $this->aRoutes = require CONFIG_DIR . '/routes.php';
     }
 
     /**
-     * @return void
+     * @return string
      */
-    public function route(): void
+    public function route(): string
     {
         $sUri = $this->getUrl();
         foreach ($this->aRoutes as $sPattern => $sPath) {
@@ -29,9 +29,9 @@ class Controller
                 $sAction = array_shift($aRouteData);
                 $sActionName = 'action' . ucfirst($sAction);
                 $sControllerName = 'controllers\\' . 'Controller' . ucfirst($sController);
-                $oController = new  $sControllerName();
+                $oController = new $sControllerName();
 
-                echo call_user_func_array([$oController, $sActionName], $aRouteData);
+                return call_user_func_array([$oController, $sActionName], $aRouteData);
             }
         }
     }

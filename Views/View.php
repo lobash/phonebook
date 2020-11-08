@@ -46,6 +46,12 @@ class View
     public function render(): string
     {
         extract($this->aData);
-        return require $this->sViewPath;
+
+        ob_start();
+        include($this->sViewPath);
+        $sContent = ob_get_contents();
+        ob_end_clean();
+
+        return $sContent;
     }
 }
