@@ -15,12 +15,10 @@
     <script src="../assets/fancybox/jquery.fancybox.min.js"></script>
     <script src="../assets/jquery/jquery.mask.min.js"></script>
     <script src="../assets/jquery/jquery.validate.js"></script>
+
     <script src="../js/validate.form.js"></script>
-
-
-
     <script type="application/javascript" src="../js/main.js"></script>
-   <!-- Custom styles for this template -->
+    <!-- Custom styles for this template -->
     <link href="../assets/dist/css/offcanvas.css" rel="stylesheet">
 </head>
 <body class="bg-light">
