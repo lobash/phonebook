@@ -6,7 +6,7 @@ return [
     'phone/view' => 'phone/view',
     'auth/login' => 'auth/login',
     'auth/logout' => 'auth/logout',
+    'register/add' => 'auth/add',
     'register' => 'auth/showRegisterForm',
-    'register/add' => 'auth/register',
     '' => 'phone/index',
 ];
