@@ -22,7 +22,7 @@ class ControllerPhone
         Validator::generateCsrf();
 
         $aListPhone = Phone::getList();
-        $oView = new View('list');
+        $oView = new View('phone/list');
         $oView->assign('aList', $aListPhone);
         return $oView->render();
     }
@@ -66,7 +66,7 @@ class ControllerPhone
         }
         $aPost['id'] = $iLastId;
 
-        $oView = new View('_item_full');
+        $oView = new View('phone/_item_full');
         $oView->assign('aItem', $aPost);
         $oView->assign('sCsrf', Validator::getCsrf());
         return $oView->render();
@@ -85,7 +85,7 @@ class ControllerPhone
         $iId = (int)Validator::clearValue($iId);
         $aData = Phone::getOnId($iId);
 
-        $oView = new View('_item_view');
+        $oView = new View('phone/_item_view');
         $oView->assign('aItem', $aData);
         $oView->assign('sCsrf', Validator::getCsrf());
         return json_encode($oView->render());
