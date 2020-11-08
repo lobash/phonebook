@@ -16,7 +16,9 @@ function autoload($className)
 }
 spl_autoload_register('autoload');
 define('ROOT', dirname(__FILE__));
-define('CONFIG_DIR_PATH', ROOT . '/configs');
+define('CONFIG_DIR', ROOT . '/configs');
+define('IMAGE_DIR', ROOT . '/assets/images');
+define('WEB_IMAGE_DIR', '/assets/images');
 
 $oController = new controllers\Controller();
 $oController->route();
