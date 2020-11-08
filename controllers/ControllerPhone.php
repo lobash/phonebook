@@ -28,14 +28,14 @@ class ControllerPhone
     /**
      * используется по ajax
      * @throws Exception
+     * @return string
      */
-    public function actionDelete()
+    public function actionDelete(): string
     {
         Validator::checkCsrf();
         $iId = (int)Validator::clearValue($_POST['id']);
         $bRes = Phone::deleteOnId($iId);
-        echo json_encode(['result' => $bRes]);
-        exit;
+        return json_encode(['result' => $bRes]);
     }
 
     /**
