@@ -9,15 +9,16 @@
     <title>Телефонный список</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script type="application/javascript" src="../assets/jquery/jquery-3.5.1.min.js"></script>
-    <link rel="stylesheet" href="../assets/fancybox/jquery.fancybox.min.css" />
-    <script src="../assets/fancybox/jquery.fancybox.min.js"></script>
-    <script src="../assets/jquery/jquery.mask.min.js"></script>
-    <script src="../assets/jquery/jquery.validate.js"></script>
+    <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="application/javascript" src="/assets/jquery/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="/assets/fancybox/jquery.fancybox.min.css" />
+    <script src="/assets/fancybox/jquery.fancybox.min.js"></script>
+    <script src="/assets/jquery/jquery.mask.min.js"></script>
+    <script src="/assets/jquery/jquery.validate.js"></script>
 
-    <script src="../js/validate.form.js"></script>
-    <script type="application/javascript" src="../js/main.js"></script>
+    <script src="/js/validate.form.phone.js"></script>
+    <script src="/js/auth.js"></script>
+    <script type="application/javascript" src="/js/phone_list.js"></script>
     <!-- Custom styles for this template -->
     <link href="../assets/dist/css/offcanvas.css" rel="stylesheet">
 </head>
@@ -29,7 +30,7 @@
         <div class="navbar-nav mr-auto"></div>
         <div class="my-2 my-lg-0">
             <div class="form-inline my-2 my-lg-0">
-                <a class="btn btn-outline-success my-2 my-sm-0" href="#">Выйти</a>
+                <a class="btn btn-outline-success my-2 my-sm-0 js-logout" href="#">Выйти</a>
             </div>
         </div>
     </div>
