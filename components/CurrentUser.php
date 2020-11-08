@@ -25,10 +25,9 @@ class CurrentUser
     }
 
     /**
-     * @param int $iId
      * @return void
      */
-    public static function loggedOut(int $iId): void
+    public static function loggedOut(): void
     {
         unset($_SESSION['logged_user_id']);
     }
