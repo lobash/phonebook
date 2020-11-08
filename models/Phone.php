@@ -89,6 +89,25 @@ class Phone
     }
 
     /**
+     * @param int $iId
+     * @return array
+     * @throws Exception
+     */
+    public static function getOnId(int $iId): array
+    {
+        $oDb = DataBaseConnect::getInstance();
+        $sQuery = "SELECT `first_name`, `last_name`, `phone_number`, `email`, `image` FROM `phone` WHERE `phone`.`id` = :id";
+        $pdoStmt = $oDb->prepare($sQuery);
+        $pdoStmt->bindParam(':id', $iId);
+        $pdoStmt->execute();
+        $aData = $pdoStmt->fetchAll();
+        if (!empty($aData[0])) {
+            return $aData[0];
+        }
+        throw new Exception("phone not found");
+    }
+
+    /**
      * @param PDO $oDb
      * @param int $iId
      * @return bool

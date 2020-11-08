@@ -6,7 +6,7 @@ use components\Validator as Validator; ?>
 /** @var array $aList */
 ?>
 
-<?php $sCsrf = Validator::generateCsrf() ?>
+<?php $sCsrf = Validator::getCsrf() ?>
     <main role="main" class="container">
         <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
             <img class="mr-3" src="../assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
@@ -24,7 +24,7 @@ use components\Validator as Validator; ?>
 
             <div class="js-list">
                 <?php foreach ($aList as $aItem): ?>
-                    <?php include ROOT . '/views/template/_item.php'; ?>
+                    <?php include ROOT . '/views/template/_item_full.php'; ?>
                 <?php endforeach; ?>
             </div>
         </div>

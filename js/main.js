@@ -13,6 +13,32 @@ $(document).ready(function () {
         removePhone.call(this);
     });
 
+    $(document).on('click', '.js-view', function () {
+        showView.call(this);
+    });
+
+
+    function showView() {
+        let id = $(this).data('id'),
+            csrf = $(this).data('csrf');
+
+        $.ajax({
+            method: 'POST',
+            url: '/phone/view',
+            data: {
+                'id': id,
+                'csrf': csrf
+            },
+            dataType: 'JSON',
+            success: function (response) {
+                $.fancybox.open(response);
+            },
+            error: function () {
+                alert('вся информация есть на списке, данная кнопка просто фича)');
+            }
+        });
+    }
+
 
     function removePhone() {
         let needDelete = confirm('Удалить элемент?'),
@@ -33,8 +59,7 @@ $(document).ready(function () {
                 success: function () {
                     $this.parents('.js-item').hide('slow');
                 },
-                error: function (a, b) {
-                    console.log(a, b);
+                error: function () {
                     alert('произошла ошибка, попробуйте в другой раз');
                 }
             });

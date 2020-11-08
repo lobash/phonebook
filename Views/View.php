@@ -32,7 +32,7 @@ class View
 
     /**
      * @param string $sName
-     * @param string $sValue
+     * @param mixed $sValue
      * @return void
      */
     public function assign(string $sName, $sValue): void

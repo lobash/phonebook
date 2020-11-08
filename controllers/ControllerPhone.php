@@ -19,6 +19,8 @@ class ControllerPhone
      */
     public function actionIndex(): string
     {
+        Validator::generateCsrf();
+
         $aListPhone = Phone::getList();
         $oView = new View('list');
         $oView->assign('aList', $aListPhone);
@@ -62,10 +64,29 @@ class ControllerPhone
             throw new Exception('error with add new phone');
         }
 
-        $oView = new View('_item');
+        $oView = new View('_item_full');
         $oView->assign('aItem', $aPost);
         $oView->assign('sCsrf', Validator::getCsrf());
         return $oView->render();
+    }
+
+    /**
+     * используется для ajax
+     * @return string
+     * @throws Exception
+     */
+    public function actionView(): string
+    {
+        Validator::checkCsrf();
+
+        $iId = $_POST['id'];
+        $iId = (int)Validator::clearValue($iId);
+        $aData = Phone::getOnId($iId);
+
+        $oView = new View('_item_view');
+        $oView->assign('aItem', $aData);
+        $oView->assign('sCsrf', Validator::getCsrf());
+        return json_encode($oView->render());
     }
 
 }
