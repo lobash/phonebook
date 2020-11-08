@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 function autoload($className)
 {
     $className = ltrim($className, '\\');
@@ -21,4 +23,5 @@ define('IMAGE_DIR', ROOT . '/assets/images');
 define('WEB_IMAGE_DIR', '/assets/images');
 
 $oController = new controllers\Controller();
-$oController->route();
+echo $oController->route();
+exit;

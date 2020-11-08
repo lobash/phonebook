@@ -10,7 +10,7 @@ class DataBaseConnect
 {
 	public static function getInstance()
     {
-        $aConfig = include CONFIG_DIR_PATH . '/database.php';
+        $aConfig = include CONFIG_DIR . '/database.php';
 
         try {
             return new PDO(
@@ -20,7 +20,7 @@ class DataBaseConnect
                 [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]
             );
         } catch (PDOException $e) {
-            die("db error: " . $e->getMessage() . "<br/>");
+            die("db error: " . $e->getMessage());
         }
     }
 
