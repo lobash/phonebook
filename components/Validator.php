@@ -43,9 +43,9 @@ class Validator
     public static function getCsrf()
     {
         if (empty($_SESSION['csrf']) !== false) {
-            return $_SESSION['csrf'];
+            return static::generateCsrf();
         }
-        return static::generateCsrf();
+        return $_SESSION['csrf'];
     }
 
 
