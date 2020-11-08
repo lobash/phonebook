@@ -4,6 +4,11 @@ $(document).ready(function () {
         showForm();
     });
 
+    $(document).on('click', '.js-logout', function (e) {
+        e.preventDefault();
+        logout();
+    });
+
     $(document).on('submit', '#form_add', function (e) {
         e.preventDefault();
         addNewPhone.call(this);
@@ -98,7 +103,7 @@ $(document).ready(function () {
             src: '#form_add_content',
             opts: {
                 afterShow: function (instance, current) {
-                    validateForm();
+                    validateFormPhone();
                 }
             }
         });
