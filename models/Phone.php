@@ -29,9 +29,9 @@ class Phone
 
     /**
      * @param array $aData
-     * @return bool
+     * @return string last insert id
      */
-    public static function addNew(array $aData)
+    public static function addNew(array $aData): string
     {
         $oDb = DataBaseConnect::getInstance();
         $sQuery = "INSERT INTO `phone` (`first_name`, `last_name`, `phone_number`, `email`, `image`) VALUES (:first_name, :last_name, :phone_number, :email, :image);";
@@ -43,7 +43,9 @@ class Phone
             ':email' => $aData['email'],
             ':image' => $aData['image']
         ];
-        return $pdoStmt->execute($aBind);
+
+        $pdoStmt->execute($aBind);
+        return $oDb->lastInsertId();
     }
 
     /**

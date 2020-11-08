@@ -60,9 +60,11 @@ class ControllerPhone
             $sInputValue = Validator::clearValue($sInputValue);
         }
 
-        if (Phone::addNew($aPost) !== true) {
+        $iLastId = (int)Phone::addNew($aPost);
+        if ($iLastId === 0) {
             throw new Exception('error with add new phone');
         }
+        $aPost['id'] = $iLastId;
 
         $oView = new View('_item_full');
         $oView->assign('aItem', $aPost);
