@@ -2,6 +2,8 @@
 
 namespace controllers;
 
+use views\View;
+
 class Controller
 {
     /** @var array */
@@ -31,7 +33,11 @@ class Controller
                 $sControllerName = 'controllers\\' . 'Controller' . ucfirst($sController);
                 $oController = new $sControllerName();
 
-                return call_user_func_array([$oController, $sActionName], $aRouteData);
+                if (class_exists($sControllerName) === false || method_exists($oController, $sActionName) === false) {
+                    return $this->set404();
+                }
+
+                return (string)call_user_func_array([$oController, $sActionName], $aRouteData);
             }
         }
     }
@@ -46,6 +52,15 @@ class Controller
             $sUri = trim($_SERVER['REQUEST_URI'], '/');
         }
         return $sUri;
+    }
+
+    /**
+     * @return string
+     */
+    private function set404(): string
+    {
+        $oView = new View('404');
+        return $oView->render();
     }
 
 }
