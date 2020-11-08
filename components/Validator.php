@@ -15,9 +15,14 @@ class Validator
     }
 
     /**
-     * @param string $sString
+     * @param string $sPassword
      * @return string
      */
+    public static function generatePasswordHash(string $sPassword): string
+    {
+        return password_hash($sPassword, PASSWORD_ARGON2I);
+    }
+
     public static function clearString(string $sString): string
     {
         $sString = trim($sString);
@@ -58,6 +63,16 @@ class Validator
             return static::generateCsrf();
         }
         return $_SESSION['csrf'];
+    }
+
+    /**
+     * @param $sPassword
+     * @param $sHash
+     * @return bool
+     */
+    public static function verifyPassword($sPassword, $sHash): bool
+    {
+        return password_verify($sPassword, $sHash);
     }
 
 
@@ -115,6 +130,27 @@ class Validator
         if (empty($_POST['csrf']) || $_POST['csrf'] !== $_SESSION['csrf']) {
             throw new Exception("hacker detected");
         }
+    }
+
+    /**
+     * @param $sPassword
+     * @return bool
+     */
+    public function checkValidPassword($sPassword): bool
+    {
+        $aPatternList = $this->aRules['password']['patterns'];
+        $iMinLength = $this->aRules['password']['min_length'];
+        if (strlen($sPassword) < $iMinLength) {
+            return false;
+        }
+
+        foreach ($aPatternList as $sPattern) {
+            if (preg_match($sPattern, $sPassword) === 0) {
+                return false;
+             }
+        }
+
+        return true;
     }
 
 }

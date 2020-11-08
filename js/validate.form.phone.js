@@ -1,4 +1,4 @@
-function validateForm() {
+function validateFormPhone() {
 
     function setRules() {
         $('#form_add').validate({
