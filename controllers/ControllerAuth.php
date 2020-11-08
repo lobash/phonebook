@@ -21,7 +21,7 @@ class ControllerAuth
     {
     }
 
-    public function actionRegister()
+    public function actionShowRegisterForm()
     {
     }
 
