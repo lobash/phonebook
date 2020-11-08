@@ -29,7 +29,7 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
     <small class="align-content-center">
-        <a href="#">Зарегестрированы? Авторизуйтесь</a>
+        <a href="/">Зарегестрированы? Авторизуйтесь</a>
     </small>
 </form>
 </body>

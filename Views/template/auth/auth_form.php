@@ -6,7 +6,7 @@
         </div>
         <div class="col-sm">
             <div class="my-3 p-3 bg-white rounded shadow-sm">
-                <form class="form-signin">
+                <form class="form-signin" action="/auth/login">
                     <img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
                     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
                     <label for="inputLogin" class="sr-only">Login</label>
@@ -17,7 +17,7 @@
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
                     <small class="align-content-center">
-                        <a href="#">Регистрация</a>
+                        <a href="/registration">Регистрация</a>
                     </small>
                 </form>
             </div>
