@@ -18,12 +18,24 @@ class Validator
      * @param string $sString
      * @return string
      */
-    public static function clearValue(string $sString): string
+    public static function clearString(string $sString): string
     {
         $sString = trim($sString);
         $sString = stripslashes($sString);
         $sString = strip_tags($sString);
         return htmlspecialchars($sString);
+    }
+
+    /**
+     * @param array $aData
+     * @return array
+     */
+    public static function clearArray(array $aData): array
+    {
+        foreach ($aData as &$sString) {
+            $sString = static::clearString($sString);
+        }
+        return $aData;
     }
 
     /**

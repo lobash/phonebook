@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use components\CurrentUser;
 use components\Uploader;
 use components\Validator;
 use Exception;
@@ -19,6 +20,10 @@ class ControllerPhone
      */
     public function actionIndex(): string
     {
+        if (CurrentUser::isLoggedIn() === false) {
+            return $this->showAuthForm();
+        }
+
         Validator::generateCsrf();
 
         $aListPhone = Phone::getList();
@@ -35,7 +40,7 @@ class ControllerPhone
     public function actionDelete(): string
     {
         Validator::checkCsrf();
-        $iId = (int)Validator::clearValue($_POST['id']);
+        $iId = (int)Validator::clearString($_POST['id']);
         $bRes = Phone::deleteOnId($iId);
         return json_encode(['result' => $bRes]);
     }
@@ -54,11 +59,9 @@ class ControllerPhone
         if (empty($aFile = $_FILES['image']) === false) {
             $sFileName = Uploader::uploadFileImage($aFile);
         }
-        $aPost['image'] = $sFileName;
 
-        foreach ($aPost as &$sInputValue) {
-            $sInputValue = Validator::clearValue($sInputValue);
-        }
+        $aPost['image'] = $sFileName;
+        $aPost = Validator::clearArray($aPost);
 
         $iLastId = (int)Phone::addNew($aPost);
         if ($iLastId === 0) {
@@ -82,13 +85,22 @@ class ControllerPhone
         Validator::checkCsrf();
 
         $iId = $_POST['id'];
-        $iId = (int)Validator::clearValue($iId);
+        $iId = (int)Validator::clearString($iId);
         $aData = Phone::getOnId($iId);
 
         $oView = new View('phone/_item_view');
         $oView->assign('aItem', $aData);
         $oView->assign('sCsrf', Validator::getCsrf());
         return json_encode($oView->render());
+    }
+
+    /**
+     * @return string
+     */
+    private function showAuthForm(): string
+    {
+        $oController = new ControllerAuth();
+        return $oController->actionShowFormAuth();
     }
 
 }
