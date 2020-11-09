@@ -32,4 +32,12 @@ class CurrentUser
         unset($_SESSION['logged_user_id']);
     }
 
+    /**
+     * @return int
+     */
+    public static function getId(): int
+    {
+        return (int)$_SESSION['logged_user_id'];
+    }
+
 }

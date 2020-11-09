@@ -12,15 +12,18 @@ use PDO;
 class Phone
 {
     /**
+     * @param int $iUserId
      * @return array
      */
-    public static function getList(): array
+    public static function getListOnUserId(int $iUserId): array
     {
         $oDb = DataBaseConnect::getInstance();
-        $sQuery = "SELECT `id`, `first_name`, `last_name`, `phone_number`, `email`, `image` FROM phone ORDER BY `last_name`";
-        $result = $oDb->query($sQuery);
+        $sQuery = "SELECT `id`, `first_name`, `last_name`, `phone_number`, `email`, `image` FROM `phone`  WHERE `user_id` = :user_id ORDER BY `last_name`";
+        $pdoStmt = $oDb->prepare($sQuery);
+        $pdoStmt->execute([':user_id' => $iUserId]);
+
         $aList = [];
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $pdoStmt->fetch(PDO::FETCH_ASSOC)) {
             $aList[] = $row;
         }
 
@@ -34,14 +37,15 @@ class Phone
     public static function addNew(array $aData): string
     {
         $oDb = DataBaseConnect::getInstance();
-        $sQuery = "INSERT INTO `phone` (`first_name`, `last_name`, `phone_number`, `email`, `image`) VALUES (:first_name, :last_name, :phone_number, :email, :image);";
+        $sQuery = "INSERT INTO `phone` (`first_name`, `last_name`, `phone_number`, `email`, `image`, `user_id`) VALUES (:first_name, :last_name, :phone_number, :email, :image, :user_id);";
         $pdoStmt = $oDb->prepare($sQuery);
         $aBind = [
             ':first_name' => $aData['first_name'],
             ':last_name' => $aData['last_name'],
             ':phone_number' => $aData['phone_number'],
             ':email' => $aData['email'],
-            ':image' => $aData['image']
+            ':image' => $aData['image'],
+            ':user_id' => $aData['user_id']
         ];
 
         $pdoStmt->execute($aBind);

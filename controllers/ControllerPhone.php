@@ -25,10 +25,10 @@ class ControllerPhone
         }
 
         Validator::generateCsrf();
-
-        $aListPhone = Phone::getList();
+        $aListPhone = Phone::getListOnUserId(CurrentUser::getId());
         $oView = new View('phone/list');
         $oView->assign('aList', $aListPhone);
+        $oView->assign('iUserId', CurrentUser::getId());
         return $oView->render();
     }
 
