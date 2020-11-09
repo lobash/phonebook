@@ -1,7 +1,7 @@
 <?php /** @var string $sCsrf */ ?>
 <?php /** @var int $iUserId */ ?>
 <div id="form_add_content" class="my-3 p-3 bg-white rounded shadow-sm" style="display: none">
-    <form id="form_add" name="add_new" method="post" action="#" >
+    <form id="form_add" name="add_new" method="post" action="#">
         <h4>Заполните данные:</h4>
         <div class="form-group">
             <label for="last_name">Фамилия</label>

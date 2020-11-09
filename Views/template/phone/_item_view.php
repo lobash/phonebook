@@ -5,13 +5,13 @@
 
 <div class="js-item">
     <div>
-            <img alt="avatar" width="50px" height="50px"
-                <?php if (!empty($aItem['image'])): ?>
-                 src="<?= WEB_IMAGE_DIR . '/' . $aItem['image'] ?>"
-                <?php else: ?>
-                 src="<?= '/cover/no_img.png' ?>"
-                 <?php endif; ?>
-            >
+        <img alt="avatar" width="50px" height="50px"
+            <?php if (!empty($aItem['image'])): ?>
+                src="<?= WEB_IMAGE_DIR . '/' . $aItem['image'] ?>"
+            <?php else: ?>
+                src="<?= '/cover/no_img.png' ?>"
+            <?php endif; ?>
+        >
 
     </div>
     <div class="media text-muted pt-3">

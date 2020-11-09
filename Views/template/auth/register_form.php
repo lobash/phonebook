@@ -14,13 +14,13 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
 
     <!-- Bootstrap core CSS -->
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="../assets/dist/css/signin.css" rel="stylesheet">
+    <link href="/assets/bootstrap/dist/css/signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
 <form class="form-signin" action="/register/add" method="post" id="register_form">
-    <img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <img class="mb-4" src="/assets/bootstrap/brand/bootstrap-solid.svg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please register now</h1>
     <label for="inputEmail" class="sr-only">Email</label>
     <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>

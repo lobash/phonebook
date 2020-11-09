@@ -9,9 +9,9 @@
     <title>Телефонный список</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="application/javascript" src="/assets/jquery/jquery-3.5.1.min.js"></script>
-    <link rel="stylesheet" href="/assets/fancybox/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="/assets/fancybox/jquery.fancybox.min.css"/>
     <script src="/assets/fancybox/jquery.fancybox.min.js"></script>
     <script src="/assets/jquery/jquery.mask.min.js"></script>
     <script src="/assets/jquery/jquery.validate.js"></script>
@@ -20,7 +20,7 @@
 
     <script type="application/javascript" src="/js/phone_list.js"></script>
     <!-- Custom styles for this template -->
-    <link href="../assets/dist/css/offcanvas.css" rel="stylesheet">
+    <link href="/assets/bootstrap/dist/css/offcanvas.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
