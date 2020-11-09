@@ -11,6 +11,7 @@
     <script src="/assets/jquery/jquery-3.5.1.min.js" type="application/javascript"></script>
     <script src="/assets/jquery/jquery.validate.js" type="application/javascript"></script>
     <script src="/js/auth.js" type="application/javascript"></script>
+    <script src="/js/validate.forms.auth.js"></script>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
 
     <!-- Bootstrap core CSS -->

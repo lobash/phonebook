@@ -5,6 +5,7 @@
 <script type="application/javascript" src="/assets/jquery/jquery-3.5.1.min.js"></script>
 <script src="/assets/jquery/jquery.validate.js"></script>
 <script src="/js/auth.js"></script>
+<script src="/js/validate.forms.auth.js"></script>
 
 <div class="container">
     <div class="row">
