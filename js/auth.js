@@ -39,9 +39,36 @@ $(document).ready(function () {
         });
     }
 
+    function sendAuthForm() {
+        let form = $(this),
+            formData = new FormData(form[0]);
+
+        $.ajax({
+            method: 'POST',
+            url: '/auth/login',
+            data: formData,
+            dataType: 'JSON',
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response === 'success') {
+                    window.location.reload();
+                }
+            },
+            error: function () {
+                alert('Ошибка, попробуйте ещё раз');
+            }
+        });
+    }
+
     $(document).on('submit', '#register_form', function (e) {
         e.preventDefault();
         sendRegisterForm.call(this);
+    });
+
+    $(document).on('submit', '#auth_form', function (e) {
+        e.preventDefault();
+        sendAuthForm.call(this);
     });
 
     $('#register_form').validate({
