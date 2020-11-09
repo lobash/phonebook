@@ -3,6 +3,7 @@
 namespace models;
 
 use components\Validator;
+use components\ValidatorPassword;
 
 class Users
 {
@@ -21,7 +22,7 @@ class Users
         $aData = $pdoStmt->fetchAll();
 
         if (!empty($aUser = $aData[0])) {
-            if (Validator::verifyPassword($sPassword, $aUser['password']) !== false) {
+            if (ValidatorPassword::verify($sPassword, $aUser['password']) !== false) {
                 return (int)$aUser['id'];
             }
         }
@@ -37,7 +38,7 @@ class Users
         $oDb = DataBaseConnect::getInstance();
         try {
             $sQuery = "INSERT INTO `users` (`login`, `email`, `password`) VALUES (:login, :email, :password);";
-            $sPwdHash = Validator::generatePasswordHash($aData['password']);
+            $sPwdHash = ValidatorPassword::generateHash($aData['password']);
             $pdoStmt = $oDb->prepare($sQuery);
             $aBind = [
                 ':login' => $aData['login'],

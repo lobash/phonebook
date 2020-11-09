@@ -4,6 +4,7 @@ namespace controllers;
 
 use components\CurrentUser;
 use components\Validator;
+use components\ValidatorPassword;
 use Exception;
 use models\Users;
 use views\View;
@@ -83,11 +84,11 @@ class ControllerAuth
 
         $aPost = $_POST;
         $aPost = Validator::clearArray($aPost);
-        $oValidator = new Validator();
+        $oValidatorPwd = new ValidatorPassword();
 
         $aResponse['error'] = '';
 
-        if ($oValidator->checkValidPassword($aPost['password']) === true) {
+        if ($oValidatorPwd->isValid($aPost['password']) === true) {
             if (Users::isLoginUnique($aPost['login']) === true) {
                 $iLastId = Users::addNew($aPost);
                 if ($iLastId !== 0) {

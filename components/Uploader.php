@@ -37,8 +37,8 @@ class Uploader
      */
     public static function uploadFileImage(array $aFile): string
     {
-        $oValidator = new Validator();
-        if ($oValidator->issetCorrectImage($aFile)) {
+        $oValidator = new ValidatorImage();
+        if ($oValidator->isCorrect($aFile)) {
             $sNewName = self::generateName($aFile['name']);
 
             if ($oValidator->checkSize($aFile['tmp_name']) === false) {
