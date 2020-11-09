@@ -108,4 +108,20 @@ $(document).ready(function () {
             }
         });
     }
+
+    function logout() {
+        $.ajax({
+            method: 'POST',
+            url: '/auth/logout',
+            dataType: 'JSON',
+            success: function (response) {
+                if (response === 'success') {
+                    window.location.reload();
+                }
+            },
+            error: function () {
+                alert('Ошибка, попробуй  ещё раз');
+            }
+        });
+    }
 });

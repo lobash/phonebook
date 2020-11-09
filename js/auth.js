@@ -1,25 +1,9 @@
-function logout() {
-    $.ajax({
-        method: 'POST',
-        url: '/auth/logout',
-        dataType: 'JSON',
-        success: function (response) {
-            if (response === 'success') {
-                window.location.reload();
-            }
-        },
-        error: function () {
-            alert('Ошибка, попробуй  ещё раз');
-        }
-    });
-}
-
 $(document).ready(function () {
 
     function sendRegisterForm() {
         let form = $(this),
             formData = new FormData(form[0]);
-        console.log(form, formData);
+
         $.ajax({
             method: 'POST',
             url: '/register/add',
@@ -31,7 +15,6 @@ $(document).ready(function () {
                 if (response.error === '') {
                     window.location.href = '/';
                 }
-                alert(response.error);
             },
             error: function () {
                 alert('Ошибка, попробуйте ещё раз');
@@ -51,7 +34,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                if (response === 'success') {
+                if (response !== 'error') {
                     window.location.reload();
                 }
             },
@@ -71,6 +54,23 @@ $(document).ready(function () {
         sendAuthForm.call(this);
     });
 
+    $('#auth_form').validate({
+        rules: {
+            login: {
+                required: true
+            },
+            password: {
+                required: true,
+            }
+        }, messages: {
+            login: {
+                required: "обязательно для заполнения"
+            },
+            password: {
+                required: "обязательно для заполнения",
+            },
+        }
+    });
     $('#register_form').validate({
         rules: {
             login: {

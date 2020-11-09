@@ -1,4 +1,5 @@
 <?php /** @var string $sCsrf */ ?>
+<?php /** @var int $iUserId */ ?>
 <div id="form_add_content" class="my-3 p-3 bg-white rounded shadow-sm" style="display: none">
     <form id="form_add" name="add_new" method="post" action="#" >
         <h4>Заполните данные:</h4>
@@ -27,6 +28,7 @@
             <input name="image" type="file" class="form-control" id="image" value="">
         </div>
         <input name="csrf" type="hidden" value="<?= $sCsrf ?>" class="form-control">
+        <input name="user_id" type="hidden" value="<?= $iUserId ?>" class="form-control">
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
