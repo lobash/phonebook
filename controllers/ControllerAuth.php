@@ -23,15 +23,19 @@ class ControllerAuth
         Validator::checkCsrf();
 
         $aPost = Validator::clearArray($_POST);
+
         if (!empty($aPost['login']) || !empty($aPost['password'])) {
+            $aResult['error'] = '';
             $iId = (int)Users::getIdOnLoginPassword($aPost['login'], $aPost['password']);
-            $sResult = 'error';
+
             if ($iId !== 0) {
                 CurrentUser::loggedIn($iId);
-                $sResult = 'success';
+
+            } else {
+                $aResult['error'] = 'логин или пароль не совпадают';
             }
 
-            return json_encode($sResult);
+            return json_encode($aResult);
         }
         throw new Exception('incorrect data for login');
     }

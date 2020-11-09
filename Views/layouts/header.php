@@ -17,7 +17,7 @@
     <script src="/assets/jquery/jquery.validate.js"></script>
 
     <script src="/js/validate.form.phone.js"></script>
-    <script src="/js/auth.js"></script>
+
     <script type="application/javascript" src="/js/phone_list.js"></script>
     <!-- Custom styles for this template -->
     <link href="../assets/dist/css/offcanvas.css" rel="stylesheet">

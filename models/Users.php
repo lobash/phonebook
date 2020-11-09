@@ -14,7 +14,6 @@ class Users
     public static function getIdOnLoginPassword(string $sLogin, string $sPassword): int
     {
         $oDb = DataBaseConnect::getInstance();
-        $sPassword = Validator::generatePasswordHash($sPassword);
         $sQuery = "SELECT `id`, `password` FROM `users` WHERE `users`.`login` = :login";
         $pdoStmt = $oDb->prepare($sQuery);
         $pdoStmt->bindParam(':login', $sLogin);
@@ -25,7 +24,6 @@ class Users
             if (Validator::verifyPassword($sPassword, $aUser['password']) !== false) {
                 return (int)$aUser['id'];
             }
-            return (int)$aData[0]['id'];
         }
         return 0;
     }

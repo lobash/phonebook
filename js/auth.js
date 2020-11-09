@@ -34,9 +34,10 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                if (response !== 'error') {
-                    window.location.reload();
+                if (typeof response.error !== 'undefined' || response.error !== '') {
+                    alert(response.error)
                 }
+                window.location.reload();
             },
             error: function () {
                 alert('Ошибка, попробуйте ещё раз');
