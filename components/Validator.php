@@ -6,9 +6,12 @@ use Exception;
 
 class Validator
 {
-
+    /** @var array */
     private $aRules = [];
 
+    /**
+     * Validator constructor.
+     */
     public function __construct()
     {
         $this->aRules = include CONFIG_DIR . '/rules.php';
@@ -23,6 +26,10 @@ class Validator
         return password_hash($sPassword, PASSWORD_ARGON2I);
     }
 
+    /**
+     * @param string $sString
+     * @return string
+     */
     public static function clearString(string $sString): string
     {
         $sString = trim($sString);
@@ -45,9 +52,9 @@ class Validator
 
     /**
      * @param int $iLength
-     * @return false|string
+     * @return string
      */
-    public static function generateCsrf(int $iLength = 10)
+    public static function generateCsrf(int $iLength = 10): string
     {
         $sRand = time() . rand(1, 1000);
         $sHash = password_hash($sRand, PASSWORD_DEFAULT);
@@ -147,7 +154,7 @@ class Validator
         foreach ($aPatternList as $sPattern) {
             if (preg_match($sPattern, $sPassword) === 0) {
                 return false;
-             }
+            }
         }
 
         return true;

@@ -24,18 +24,19 @@ class ControllerPhone
             return $this->showAuthForm();
         }
 
-        Validator::generateCsrf();
+        $sCsrf = Validator::generateCsrf();
         $aListPhone = Phone::getListOnUserId(CurrentUser::getId());
         $oView = new View('phone/list');
         $oView->assign('aList', $aListPhone);
+        $oView->assign('sCsrf', $sCsrf);
         $oView->assign('iUserId', CurrentUser::getId());
         return $oView->render();
     }
 
     /**
      * используется по ajax
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function actionDelete(): string
     {
@@ -47,9 +48,10 @@ class ControllerPhone
 
     /**
      * используется по ajax
+     * @return string
      * @throws Exception
      */
-    public function actionAdd()
+    public function actionAdd(): string
     {
         Validator::checkCsrf();
 

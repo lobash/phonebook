@@ -8,7 +8,10 @@ use PDOException;
 
 class DataBaseConnect
 {
-	public static function getInstance()
+    /**
+     * @return PDO
+     */
+    public static function getInstance(): PDO
     {
         $aConfig = include CONFIG_DIR . '/database.php';
 

@@ -52,11 +52,13 @@ class ControllerAuth
         return $oView->render();
     }
 
-    public function actionLogout()
+    /**
+     * @return string
+     */
+    public function actionLogout(): string
     {
         CurrentUser::loggedOut();
-        echo json_encode('success');
-        exit;
+        return json_encode('success');
     }
 
     /**
