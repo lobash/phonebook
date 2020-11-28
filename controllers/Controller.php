@@ -40,6 +40,7 @@ class Controller
                 return (string)call_user_func_array([$oController, $sActionName], $aRouteData);
             }
         }
+        return $this->set404();
     }
 
     /**

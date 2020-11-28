@@ -2,8 +2,6 @@
 
 namespace components;
 
-use Exception;
-
 class ValidatorImage extends Validator
 {
 
