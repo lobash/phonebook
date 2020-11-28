@@ -1,0 +1,22 @@
+# generated: 21-11-2016 10:27:36
+# Special version
+
+ErrorDocument 404 /404.php
+
+Options +FollowSymLinks
+Options -Indexes
+rewriteEngine on
+
+# блокируем все url начинающаяся с точкой(.git,.idea)
+RedirectMatch 404 /\..*$
+
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ![.][^\/]*$
+RewriteRule ^(.*)$ /index.php
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.*)\.php$
+RewriteRule ^(.*)$ /index.php

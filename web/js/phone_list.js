@@ -102,7 +102,7 @@ $(document).ready(function () {
         $.fancybox.open({
             src: '#form_add_content',
             opts: {
-                afterShow: function (instance, current) {
+                afterShow: function () {
                     validateFormPhone();
                 }
             }

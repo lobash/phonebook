@@ -36,7 +36,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                if (typeof response.error !== 'undefined' || response.error !== '') {
+                if (typeof response.error !== 'undefined' && response.error !== '') {
                     alert(response.error)
                 } else {
                     window.location.reload();
