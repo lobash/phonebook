@@ -1,4 +1,5 @@
 .idea
-assets
+/vendor/
+/web/assets
+/web/cover
 configs/database.php
-cover

@@ -1,6 +1,12 @@
-RewriteEngine On
+Options +FollowSymLinks
+IndexIgnore /
+RewriteEngine on
 
-RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteCond %{SCRIPT_FILENAME} !-f
+# Если запрос не начинается с web, добавляем его
+RewriteCond %{REQUEST_URI} !^/(web)
+RewriteRule ^(.*)$ /web/$1 [L]
 
-RewriteRule ^(.*)$ ./index.php [QSA,L]
+# Если файл или каталог не существует, идём к /web/index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /web/index.php
