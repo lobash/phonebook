@@ -2,6 +2,7 @@
 
 namespace models;
 
+use components\CurrentUser;
 use Exception;
 use PDO;
 
@@ -57,22 +58,15 @@ class Phone
      * @return bool
      * @throws Exception
      */
-    public static function deleteOnId(int $iId): bool
+    public static function delete(int $iId): bool
     {
         $oDb = DataBaseConnect::getInstance();
         $sImage = self::getImageName($oDb, $iId);
-        $bDeletedStr = self::executeDelete($oDb, $iId);
-
-        if ($bDeletedStr === false) {
+        if (self::executeDelete($oDb, $iId) === false) {
             throw new Exception('Phone not deleted');
         }
 
-        if ($sImage !== '') {
-            if (unlink(IMAGE_DIR . '/' . $sImage) === false) {
-                throw new Exception("Error with delete image");
-            }
-        }
-        return true;
+        return self::deleteImage($sImage);
     }
 
     /**
@@ -120,9 +114,25 @@ class Phone
      */
     private static function executeDelete(PDO &$oDb, int $iId): bool
     {
-        $sQueryDelete = "DELETE FROM `phone` WHERE `phone`.`id` = :id";
+        $sQueryDelete = "DELETE FROM `phone` WHERE `phone`.`id` = :id AND `phone`.`user_id` = :user_id";
         $pdoStmt = $oDb->prepare($sQueryDelete);
         $pdoStmt->bindParam(':id', $iId);
+        $pdoStmt->bindParam(':user_id', CurrentUser::getId());
         return $pdoStmt->execute();
+    }
+
+    /**
+     * @param string $sImage
+     * @throws Exception
+     * @return bool
+     */
+    private static function deleteImage(string $sImage): bool
+    {
+        if ($sImage !== '') {
+            if (unlink(IMAGE_DIR . '/' . $sImage) === false) {
+                throw new Exception("Error with delete image");
+            }
+        }
+        return true;
     }
 }

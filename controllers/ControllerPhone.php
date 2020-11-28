@@ -42,7 +42,7 @@ class ControllerPhone
     {
         Validator::checkCsrf();
         $iId = (int)Validator::clearString($_POST['id']);
-        $bRes = Phone::deleteOnId($iId);
+        $bRes = Phone::delete($iId);
         return json_encode(['result' => $bRes]);
     }
 
