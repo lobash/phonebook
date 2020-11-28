@@ -7,7 +7,7 @@
             <?php if (!empty($aItem['image'])): ?>
                 src="<?= WEB_IMAGE_DIR . '/' . $aItem['image'] ?>"
             <?php else: ?>
-                src="<?= '/cover/no_img.png' ?>"
+                src="<?= WEB_IMAGE_DIR . '/no_img.png' ?>"
             <?php endif; ?>
         >
 
