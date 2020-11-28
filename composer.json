@@ -10,7 +10,10 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.2.0"
+        "php": ">=7.2.0",
+        "ext-fileinfo": "*",
+        "ext-json": "*",
+        "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
