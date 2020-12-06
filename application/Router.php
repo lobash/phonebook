@@ -1,10 +1,10 @@
 <?php
 
-namespace controllers;
+namespace application;
 
 use views\View;
 
-class Controller
+class Router
 {
     /** @var array */
     private $aRoutes = [];
@@ -20,7 +20,7 @@ class Controller
     /**
      * @return string
      */
-    public function route(): string
+    public function run(): string
     {
         $sUri = $this->getUrl();
         foreach ($this->aRoutes as $sPattern => $sPath) {
