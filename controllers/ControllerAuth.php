@@ -88,23 +88,20 @@ class ControllerAuth
 
         $aResponse['error'] = '';
 
-        if ($oValidatorPwd->isValid($aPost['password']) === true) {
-            if (Users::isLoginUnique($aPost['login']) === true) {
-                $iLastId = Users::addNew($aPost);
-                if ($iLastId !== 0) {
-                    CurrentUser::loggedIn($iLastId);
-
-                } else {
-                    $aResponse['error'] = 'Ошибка при сохранении';
-                }
-
-            } else {
-                $aResponse['error'] = 'Такой логин уже существует';
-            }
-
-        } else {
+        if ($oValidatorPwd->isValid($aPost['password']) === false) {
             $aResponse['error'] = 'Не валидный пароль';
         }
+
+        if (Users::isLoginUnique($aPost['login']) === false) {
+            $aResponse['error'] = 'Такой логин уже существует';
+        }
+
+        $iLastId = Users::addNew($aPost);
+        if ($iLastId === 0) {
+            $aResponse['error'] = 'Ошибка при сохранении';
+        }
+
+        CurrentUser::loggedIn($iLastId);
 
         return json_encode($aResponse);
     }

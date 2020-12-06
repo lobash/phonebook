@@ -2,6 +2,8 @@
 
 namespace views;
 
+use Exception;
+
 class View
 {
     /** @var array */
@@ -19,12 +21,12 @@ class View
         try {
             $sFilePath = ROOT . '/views/template/' . strtolower($sTemplate) . '.php';
             if (file_exists($sFilePath) === false) {
-                throw new \Exception('template not found');
+                throw new Exception('template not found');
             }
 
             $this->sViewPath = $sFilePath;
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo $e->getMessage();
         }
 
