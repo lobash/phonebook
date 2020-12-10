@@ -43,7 +43,7 @@ class ControllerPhone
     public function actionDelete(): string
     {
         Validator::checkCsrf();
-        $iId = (int)Validator::clearString($_POST['id']);
+        $iId = (int)Request::get('id');
         $bRes = Phone::delete($iId);
         return json_encode(['result' => $bRes]);
     }

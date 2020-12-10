@@ -2,6 +2,7 @@
 
 namespace components;
 
+use application\Request;
 use Exception;
 
 class Validator
@@ -71,7 +72,8 @@ class Validator
      */
     public static function checkCsrf(): void
     {
-        if (empty($_POST['csrf']) || $_POST['csrf'] !== $_SESSION['csrf']) {
+        $sCsrf = Request::get('csrf');
+        if ($sCsrf !== $_SESSION['csrf']) {
             throw new Exception("hacker detected");
         }
     }
