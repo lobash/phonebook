@@ -7,6 +7,7 @@ use components\Validator;
 use components\ValidatorPassword;
 use Exception;
 use models\Users;
+use services\Auth;
 use views\View;
 
 /**
@@ -23,22 +24,8 @@ class ControllerAuth
     {
         Validator::checkCsrf();
 
-        $aPost = Validator::clearArray($_POST);
-
-        if (!empty($aPost['login']) || !empty($aPost['password'])) {
-            $aResult['error'] = '';
-            $iId = (int)Users::getIdOnLoginPassword($aPost['login'], $aPost['password']);
-
-            if ($iId !== 0) {
-                CurrentUser::loggedIn($iId);
-
-            } else {
-                $aResult['error'] = 'логин или пароль не совпадают';
-            }
-
-            return json_encode($aResult);
-        }
-        throw new Exception('incorrect data for login');
+        $aResult = Auth::loggedIn();
+        return json_encode($aResult);
     }
 
     /**

@@ -34,6 +34,7 @@ class Phone
     /**
      * @param array $aData
      * @return string last insert id
+     * @throws Exception
      */
     public static function addNew(array $aData): string
     {

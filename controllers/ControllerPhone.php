@@ -2,11 +2,13 @@
 
 namespace controllers;
 
+use application\Request;
 use components\CurrentUser;
 use components\Uploader;
 use components\Validator;
 use Exception;
 use models\Phone;
+use services\Phone as ServicePhone;
 use views\View;
 
 /**
@@ -55,21 +57,11 @@ class ControllerPhone
     {
         Validator::checkCsrf();
 
+        $aFile = $_FILES['image'];
+
         $aPost = $_POST;
-        $sFileName = '';
-
-        if (empty($aFile = $_FILES['image']) === false) {
-            $sFileName = Uploader::uploadFileImage($aFile);
-        }
-
-        $aPost['image'] = $sFileName;
-        $aPost = Validator::clearArray($aPost);
-
-        $iLastId = (int)Phone::addNew($aPost);
-        if ($iLastId === 0) {
-            throw new Exception('error with add new phone');
-        }
-        $aPost['id'] = $iLastId;
+        $aPost['image'] = Uploader::uploadFileImage($aFile);
+        $aPost['id'] = ServicePhone::add($aPost);
 
         $oView = new View('phone/_item_full');
         $oView->assign('aItem', $aPost);
@@ -86,9 +78,8 @@ class ControllerPhone
     {
         Validator::checkCsrf();
 
-        $iId = $_POST['id'];
-        $iId = (int)Validator::clearString($iId);
-        $aData = Phone::getOnId($iId);
+        $iId = Request::get('id');
+        $aData = ServicePhone::get($iId);
 
         $oView = new View('phone/_item_view');
         $oView->assign('aItem', $aData);

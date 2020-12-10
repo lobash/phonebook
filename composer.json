@@ -18,6 +18,7 @@
     "autoload": {
         "psr-4": {
             "application\\": "application",
+            "services\\": "services",
             "components\\": "components",
             "controllers\\": "controllers",
             "views\\": "views",
