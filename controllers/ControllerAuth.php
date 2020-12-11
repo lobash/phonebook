@@ -4,9 +4,7 @@ namespace controllers;
 
 use components\CurrentUser;
 use components\Validator;
-use components\ValidatorPassword;
 use Exception;
-use models\Users;
 use services\Auth;
 use views\View;
 
@@ -68,27 +66,14 @@ class ControllerAuth
     public function actionAdd()
     {
         Validator::checkCsrf();
-
-        $aPost = $_POST;
-        $aPost = Validator::clearArray($aPost);
-        $oValidatorPwd = new ValidatorPassword();
-
         $aResponse['error'] = '';
 
-        if ($oValidatorPwd->isValid($aPost['password']) === false) {
-            $aResponse['error'] = 'Не валидный пароль';
-        }
+        try {
+            Auth::add();
 
-        if (Users::isLoginUnique($aPost['login']) === false) {
-            $aResponse['error'] = 'Такой логин уже существует';
+        } catch (Exception $oException) {
+            $aResponse['error'] = $oException->getMessage();
         }
-
-        $iLastId = Users::addNew($aPost);
-        if ($iLastId === 0) {
-            $aResponse['error'] = 'Ошибка при сохранении';
-        }
-
-        CurrentUser::loggedIn($iLastId);
 
         return json_encode($aResponse);
     }
