@@ -2,8 +2,8 @@
 
 namespace models;
 
-use components\Validator;
 use components\ValidatorPassword;
+use PDOException;
 
 class Users
 {
@@ -30,24 +30,26 @@ class Users
     }
 
     /**
-     * @param array $aData
+     * @param string $sLogin
+     * @param string $sEmail
+     * @param string $sPassword
      * @return int
      */
-    public static function addNew(array $aData): int
+    public static function addNew(string $sLogin, string $sEmail, string $sPassword): int
     {
         $oDb = DataBaseConnect::getInstance();
         try {
             $sQuery = "INSERT INTO `users` (`login`, `email`, `password`) VALUES (:login, :email, :password);";
-            $sPwdHash = ValidatorPassword::generateHash($aData['password']);
+            $sPwdHash = ValidatorPassword::generateHash($sPassword);
             $pdoStmt = $oDb->prepare($sQuery);
             $aBind = [
-                ':login' => $aData['login'],
-                ':email' => $aData['email'],
+                ':login' => $sLogin,
+                ':email' => $sEmail,
                 ':password' => $sPwdHash,
             ];
             $pdoStmt->execute($aBind);
             return (int)$oDb->lastInsertId();
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             die($oDb->errorInfo());
         }
     }
@@ -68,5 +70,4 @@ class Users
         }
         return true;
     }
-
 }

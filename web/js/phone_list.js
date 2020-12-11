@@ -99,12 +99,19 @@ $(document).ready(function () {
     }
 
     function showForm() {
-        $.fancybox.open({
-            src: '#form_add_content',
-            opts: {
-                afterShow: function () {
-                    validateFormPhone();
-                }
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'phone/showForm',
+            success: function (response) {
+                $.fancybox.open(response, {
+                    afterShow: function () {
+                        validateFormPhone();
+                    },
+                });
+            },
+            error: function () {
+                alert("произошла ошибка, попробуйте позже");
             }
         });
     }

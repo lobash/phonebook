@@ -1,6 +1,4 @@
-<?php include ROOT . '/views/layouts/header.php';
-
-use components\Validator as Validator; ?>
+<?php include ROOT . '/views/layouts/header.php'; ?>
 
 <?php
 /** @var array $aList */
@@ -28,7 +26,5 @@ use components\Validator as Validator; ?>
             </div>
         </div>
     </main>
-
-<?php include_once ROOT . '/views/template/phone/_form_add.php'; ?>
 
 <?php include ROOT . '/views/layouts/footer.php'; ?>

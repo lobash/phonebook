@@ -31,7 +31,6 @@ class ControllerPhone
         $oView = new View('phone/list');
         $oView->assign('aList', $aListPhone);
         $oView->assign('sCsrf', $sCsrf);
-        $oView->assign('iUserId', CurrentUser::getId());
         return $oView->render();
     }
 
@@ -84,6 +83,20 @@ class ControllerPhone
         $oView = new View('phone/_item_view');
         $oView->assign('aItem', $aData);
         $oView->assign('sCsrf', Validator::getCsrf());
+        return json_encode($oView->render());
+    }
+
+    /**
+     * используется для ajax
+     * @return string
+     * @throws Exception
+     */
+    public function actionShowForm(): string
+    {
+        $oView = new View('phone/form_add');
+        $oView->assign('sCsrf', Validator::getCsrf());
+        $oView->assign('iUserId', CurrentUser::getId());
+
         return json_encode($oView->render());
     }
 
